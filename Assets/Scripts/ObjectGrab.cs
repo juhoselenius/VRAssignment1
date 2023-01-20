@@ -7,11 +7,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ObjectGrab : MonoBehaviour
 {
     public XRRayInteractor rayInteractor;
-    
     public InputActionReference rotationReference = null;
-
     public GameObject selectable;
-
     public float rotationAngle;
 
     private float length;
@@ -22,7 +19,7 @@ public class ObjectGrab : MonoBehaviour
     {
         currentRotation = rotationReference.action.ReadValue<Quaternion>().z * 100;
 
-        if(gameObject.name == "LeftHand Controller")
+        if(gameObject.name == "LeftHand Controller")  // Moving the cube with the left controller
         {
             if (currentRotation < rotationAngle)
             {
@@ -32,14 +29,11 @@ public class ObjectGrab : MonoBehaviour
                     if (hit.collider.gameObject.name == "Cube")
                     {
                         selectable = hit.collider.gameObject;
-
-                        //Testi
                         selectable.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
 
                         length = Vector3.Distance(transform.position, selectable.transform.position);
 
                         selectable.transform.GetComponent<Rigidbody>().isKinematic = true;
-
                         selectable.transform.position = transform.position + transform.forward * length;
                     }
                 }
@@ -53,7 +47,7 @@ public class ObjectGrab : MonoBehaviour
                 }
             }
         }
-        else if(gameObject.name == "RightHand Controller")
+        else if(gameObject.name == "RightHand Controller") // Moving the sphere with the right controller
         {
             if (currentRotation > rotationAngle)
             {
@@ -63,14 +57,11 @@ public class ObjectGrab : MonoBehaviour
                     if (hit.collider.gameObject.name == "Sphere")
                     {
                         selectable = hit.collider.gameObject;
-
-                        //Testi
                         selectable.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
 
                         length = Vector3.Distance(transform.position, selectable.transform.position);
 
                         selectable.transform.GetComponent<Rigidbody>().isKinematic = true;
-
                         selectable.transform.position = transform.position + transform.forward * length;
                     }
                 }
